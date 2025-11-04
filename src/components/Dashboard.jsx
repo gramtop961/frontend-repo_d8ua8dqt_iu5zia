@@ -80,7 +80,6 @@ const Dashboard = () => {
   const analyze = async () => {
     if (!image) return;
     setLoading(true);
-    // Simulate analysis locally for demo purposes
     await new Promise((r) => setTimeout(r, 1200));
     const picked = exampleFindings[Math.floor(Math.random() * exampleFindings.length)];
     const newResult = {
@@ -111,20 +110,20 @@ const Dashboard = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-3xl font-bold text-slate-900">Dashboard</h2>
-            <p className="mt-1 text-slate-600">{greeting}{profile.name ? `, ${profile.name}` : ''}. Manage analyses, history, and profile.</p>
+            <h2 className="text-3xl font-bold text-white">Dashboard</h2>
+            <p className="mt-1 text-neutral-300">{greeting}{profile.name ? `, ${profile.name}` : ''}. Manage analyses, history, and profile.</p>
           </div>
         </div>
 
-        <div className="mt-6 rounded-xl border border-slate-200 bg-white overflow-hidden">
-          <div className="border-b border-slate-200 bg-slate-50/60">
+        <div className="mt-6 rounded-xl border border-neutral-800 bg-neutral-900/60 overflow-hidden">
+          <div className="border-b border-neutral-800 bg-neutral-900/70">
             <div className="flex">
               {tabs.map((t) => (
                 <button
                   key={t.id}
                   onClick={() => setActive(t.id)}
-                  className={`px-5 py-3 text-sm font-medium border-r border-slate-200 transition ${
-                    active === t.id ? 'bg-white text-green-700' : 'text-slate-700 hover:bg-white/50'
+                  className={`px-5 py-3 text-sm font-medium border-r border-neutral-800 transition ${
+                    active === t.id ? 'bg-neutral-900 text-emerald-400' : 'text-neutral-300 hover:bg-neutral-800/60'
                   }`}
                 >
                   {t.label}
@@ -136,17 +135,17 @@ const Dashboard = () => {
           {/* Analyze */}
           {active === 'analyze' && (
             <div className="p-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
-              <div className="lg:col-span-2 p-6 border border-dashed border-slate-300 rounded-xl bg-slate-50">
+              <div className="lg:col-span-2 p-6 border border-dashed border-neutral-700 rounded-xl bg-neutral-900">
                 {!image ? (
                   <div className="flex flex-col items-center justify-center text-center gap-3">
-                    <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-700 grid place-items-center text-2xl">🌿</div>
+                    <div className="w-16 h-16 rounded-full bg-emerald-500/15 text-emerald-300 grid place-items-center text-2xl">🌿</div>
                     <div>
-                      <p className="font-medium text-slate-900">Upload a leaf photo</p>
-                      <p className="text-slate-600 text-sm">JPG or PNG, clear close-up works best</p>
+                      <p className="font-medium text-white">Upload a leaf photo</p>
+                      <p className="text-neutral-400 text-sm">JPG or PNG, clear close-up works best</p>
                     </div>
                     <button
                       onClick={() => fileRef.current?.click()}
-                      className="mt-2 inline-flex items-center px-4 py-2 rounded-md bg-green-600 text-white hover:bg-green-700"
+                      className="mt-2 inline-flex items-center px-4 py-2 rounded-md bg-emerald-600 text-white hover:bg-emerald-500"
                     >
                       Choose image
                     </button>
@@ -155,18 +154,18 @@ const Dashboard = () => {
                 ) : (
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                      <img src={image.url} alt="upload preview" className="w-full h-64 object-cover rounded-lg border" />
+                      <img src={image.url} alt="upload preview" className="w-full h-64 object-cover rounded-lg border border-neutral-800" />
                       <div className="mt-3 flex gap-2">
-                        <button onClick={() => setImage(null)} className="px-3 py-2 rounded-md border border-slate-300 text-slate-800 hover:bg-white">Change</button>
-                        <button onClick={analyze} disabled={loading} className="px-4 py-2 rounded-md bg-green-600 text-white hover:bg-green-700 disabled:opacity-60">
+                        <button onClick={() => setImage(null)} className="px-3 py-2 rounded-md border border-neutral-700 text-neutral-200 hover:bg-neutral-800">Change</button>
+                        <button onClick={analyze} disabled={loading} className="px-4 py-2 rounded-md bg-emerald-600 text-white hover:bg-emerald-500 disabled:opacity-60">
                           {loading ? 'Analyzing…' : 'Analyze photo'}
                         </button>
                       </div>
                     </div>
                     <div>
-                      <div className="p-4 rounded-lg bg-white border">
-                        <h4 className="font-semibold text-slate-900">What you’ll get</h4>
-                        <ul className="mt-2 text-sm text-slate-600 list-disc list-inside space-y-1">
+                      <div className="p-4 rounded-lg bg-neutral-900 border border-neutral-800">
+                        <h4 className="font-semibold text-white">What you’ll get</h4>
+                        <ul className="mt-2 text-sm text-neutral-300 list-disc list-inside space-y-1">
                           <li>Likely disease classification</li>
                           <li>Confidence estimate</li>
                           <li>Step-by-step treatment plan</li>
@@ -174,9 +173,9 @@ const Dashboard = () => {
                         </ul>
                       </div>
                       {result && (
-                        <div className="mt-4 p-4 rounded-lg bg-emerald-50 border border-emerald-200">
-                          <p className="font-semibold text-emerald-800">Latest result: {result.disease}</p>
-                          <p className="text-emerald-700 text-sm">Confidence: {(result.confidence * 100).toFixed(0)}%</p>
+                        <div className="mt-4 p-4 rounded-lg bg-emerald-500/10 border border-emerald-500/30">
+                          <p className="font-semibold text-emerald-300">Latest result: {result.disease}</p>
+                          <p className="text-emerald-300/90 text-sm">Confidence: {(result.confidence * 100).toFixed(0)}%</p>
                         </div>
                       )}
                     </div>
@@ -184,9 +183,9 @@ const Dashboard = () => {
                 )}
               </div>
 
-              <aside className="p-4 bg-white border rounded-xl">
-                <h4 className="font-semibold text-slate-900">Quick tips</h4>
-                <ul className="mt-2 text-sm text-slate-600 list-disc list-inside space-y-1">
+              <aside className="p-4 bg-neutral-900 border border-neutral-800 rounded-xl">
+                <h4 className="font-semibold text-white">Quick tips</h4>
+                <ul className="mt-2 text-sm text-neutral-300 list-disc list-inside space-y-1">
                   <li>Take photos in good light, avoid harsh shadows.</li>
                   <li>Fill the frame with the affected leaf area.</li>
                   <li>Upload multiple angles for better assessment.</li>
@@ -199,22 +198,22 @@ const Dashboard = () => {
           {active === 'history' && (
             <div className="p-6">
               <div className="flex items-center justify-between gap-4">
-                <h3 className="text-lg font-semibold text-slate-900">Recent analyses</h3>
+                <h3 className="text-lg font-semibold text-white">Recent analyses</h3>
                 {history.length > 0 && (
-                  <button onClick={clearHistory} className="px-3 py-2 rounded-md border border-slate-300 text-slate-800 hover:bg-white">Clear</button>
+                  <button onClick={clearHistory} className="px-3 py-2 rounded-md border border-neutral-700 text-neutral-200 hover:bg-neutral-800">Clear</button>
                 )}
               </div>
               {history.length === 0 ? (
-                <p className="mt-4 text-slate-600">No history yet. Analyze a photo to see results here.</p>
+                <p className="mt-4 text-neutral-300">No history yet. Analyze a photo to see results here.</p>
               ) : (
                 <div className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {history.map((h, idx) => (
-                    <div key={idx} className="rounded-xl border border-slate-200 overflow-hidden bg-white">
+                    <div key={idx} className="rounded-xl border border-neutral-800 overflow-hidden bg-neutral-900/60">
                       <img src={h.image} alt="result" className="w-full h-40 object-cover" />
                       <div className="p-4">
-                        <p className="font-semibold text-slate-900">{h.disease}</p>
-                        <p className="text-sm text-slate-600">Confidence {(h.confidence * 100).toFixed(0)}% • {new Date(h.date).toLocaleString()}</p>
-                        <p className="mt-2 text-sm text-slate-700"><span className="font-medium">Treatment:</span> {h.treatment}</p>
+                        <p className="font-semibold text-white">{h.disease}</p>
+                        <p className="text-sm text-neutral-300">Confidence {(h.confidence * 100).toFixed(0)}% • {new Date(h.date).toLocaleString()}</p>
+                        <p className="mt-2 text-sm text-neutral-200"><span className="font-medium">Treatment:</span> {h.treatment}</p>
                       </div>
                     </div>
                   ))}
@@ -226,50 +225,50 @@ const Dashboard = () => {
           {/* Profile */}
           {active === 'profile' && (
             <div id="profile" className="p-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
-              <form onSubmit={saveProfile} className="lg:col-span-2 p-6 rounded-xl border bg-white">
-                <h3 className="text-lg font-semibold text-slate-900">Profile</h3>
+              <form onSubmit={saveProfile} className="lg:col-span-2 p-6 rounded-xl border border-neutral-800 bg-neutral-900/60">
+                <h3 className="text-lg font-semibold text-white">Profile</h3>
                 <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
                   <label className="block">
-                    <span className="text-sm text-slate-700">Display name</span>
+                    <span className="text-sm text-neutral-300">Display name</span>
                     <input
                       value={profile.name}
                       onChange={(e) => setProfile((p) => ({ ...p, name: e.target.value }))}
-                      className="mt-1 w-full rounded-md border-slate-300 focus:border-green-600 focus:ring-green-600"
+                      className="mt-1 w-full rounded-md border-neutral-700 bg-neutral-900 text-neutral-100 placeholder-neutral-500 focus:border-emerald-500 focus:ring-emerald-500"
                       placeholder="e.g., Maria from GreenFarm"
                     />
                   </label>
                   <label className="block">
-                    <span className="text-sm text-slate-700">Location</span>
+                    <span className="text-sm text-neutral-300">Location</span>
                     <input
                       value={profile.location}
                       onChange={(e) => setProfile((p) => ({ ...p, location: e.target.value }))}
-                      className="mt-1 w-full rounded-md border-slate-300 focus:border-green-600 focus:ring-green-600"
+                      className="mt-1 w-full rounded-md border-neutral-700 bg-neutral-900 text-neutral-100 placeholder-neutral-500 focus:border-emerald-500 focus:ring-emerald-500"
                       placeholder="City, Country"
                     />
                   </label>
                   <label className="block md:col-span-2">
-                    <span className="text-sm text-slate-700">Primary crops</span>
+                    <span className="text-sm text-neutral-300">Primary crops</span>
                     <input
                       value={profile.crops}
                       onChange={(e) => setProfile((p) => ({ ...p, crops: e.target.value }))}
-                      className="mt-1 w-full rounded-md border-slate-300 focus:border-green-600 focus:ring-green-600"
+                      className="mt-1 w-full rounded-md border-neutral-700 bg-neutral-900 text-neutral-100 placeholder-neutral-500 focus:border-emerald-500 focus:ring-emerald-500"
                       placeholder="Tomatoes, Corn, Wheat"
                     />
                   </label>
                 </div>
                 <div className="mt-6 flex gap-3">
-                  <button type="submit" className="px-4 py-2 rounded-md bg-green-600 text-white hover:bg-green-700">Save changes</button>
-                  <button type="button" onClick={() => setProfile({ name: '', location: '', crops: '' })} className="px-4 py-2 rounded-md border border-slate-300 text-slate-800 hover:bg-white">Reset</button>
+                  <button type="submit" className="px-4 py-2 rounded-md bg-emerald-600 text-white hover:bg-emerald-500">Save changes</button>
+                  <button type="button" onClick={() => setProfile({ name: '', location: '', crops: '' })} className="px-4 py-2 rounded-md border border-neutral-700 text-neutral-200 hover:bg-neutral-800">Reset</button>
                 </div>
               </form>
 
-              <aside className="p-6 rounded-xl border bg-emerald-50 border-emerald-200">
-                <h4 className="font-semibold text-emerald-900">Profile tips</h4>
-                <p className="mt-2 text-sm text-emerald-800">Set your farm details and crops to personalize recommendations and track analyses by field.</p>
-                <div className="mt-4 p-4 rounded-lg bg-white/70">
-                  <p className="text-sm text-slate-700"><span className="font-medium">Name:</span> {profile.name || '—'}</p>
-                  <p className="text-sm text-slate-700"><span className="font-medium">Location:</span> {profile.location || '—'}</p>
-                  <p className="text-sm text-slate-700"><span className="font-medium">Crops:</span> {profile.crops || '—'}</p>
+              <aside className="p-6 rounded-xl border border-emerald-500/30 bg-emerald-500/10">
+                <h4 className="font-semibold text-emerald-300">Profile tips</h4>
+                <p className="mt-2 text-sm text-emerald-200/90">Set your farm details and crops to personalize recommendations and track analyses by field.</p>
+                <div className="mt-4 p-4 rounded-lg bg-neutral-900 border border-neutral-800">
+                  <p className="text-sm text-neutral-200"><span className="font-medium">Name:</span> {profile.name || '—'}</p>
+                  <p className="text-sm text-neutral-200"><span className="font-medium">Location:</span> {profile.location || '—'}</p>
+                  <p className="text-sm text-neutral-200"><span className="font-medium">Crops:</span> {profile.crops || '—'}</p>
                 </div>
               </aside>
             </div>
